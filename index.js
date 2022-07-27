@@ -29,7 +29,6 @@
   var sceneListToggleElement = document.querySelector('#sceneListToggle');
   var autorotateToggleElement = document.querySelector('#autorotateToggle');
   var fullscreenToggleElement = document.querySelector('#fullscreenToggle');
-
   // Detect desktop or mobile mode.
   if (window.matchMedia) {
     var setMode = function() {
@@ -149,8 +148,6 @@
   scenes.forEach(function(scene) {
     var el = document.querySelector('#sceneList .scene[data-id="' + scene.data.id + '"]');
     el.addEventListener('click', function() {
-      var vid=document.getElementById("Video");
-      vid.pause();
       switchScene(scene);
       // On mobile, hide scene list after selecting a scene.
       if (document.body.classList.contains('mobile')) {
@@ -186,6 +183,7 @@
 
   function switchScene(scene) { 
     stopAutorotate();
+    stopVideo();
     scene.view.setParameters(scene.data.initialViewParameters);
     scene.scene.switchTo();
     startAutorotate();
@@ -193,6 +191,13 @@
     updateSceneList(scene);
   }
 
+  function stopVideo() {
+    var elements = document.getElementsByClassName("info-hotspot-video");
+    for(var i  = 0; i< elements.length; i++) {
+      elements[i].pause();
+      elements[i].currentTime=0;
+    }
+  }
   function updateSceneName(scene) {
     sceneNameElement.innerHTML = sanitize(scene.data.name);
   }
@@ -267,8 +272,6 @@
 
     // Add click event handler.
     wrapper.addEventListener('click', function() {
-      var vid=document.getElementById("Video");
-      vid.pause();
       switchScene(findSceneById(hotspot.target));
     });
 
@@ -370,6 +373,7 @@
       wrapper.classList.toggle('visible');
       modal.classList.toggle('visible');
       video.pause();
+      video.currentTime=0;
     };
 
     // Show content when hotspot is clicked.
