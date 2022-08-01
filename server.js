@@ -43,4 +43,6 @@ app.post("/details",function(req,res){
     res.redirect("/map");
 })
 
+app.use(express.static(__dirname + '/public'));
+
 app.listen(process.env.PORT || 3000)
