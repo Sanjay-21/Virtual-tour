@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Map</title>
+    <style>
+        #map{
+            height:1000px;
+            width:100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+    <script>
+        function initMap(){
+            var options = {
+                zoom:13,
+                center:{lat: 11.0168,lng:76.9558}
+            }
+
+            var map = new google.maps.Map(document.getElementById('map'),options);
+
+            var marker = new google.maps.Marker({
+                position:{lat:11.028431199167613, lng:77.02726986858426},
+                map:map
+            });
+
+            var infoWindow = new google.maps.InfoWindow({
+                content:'<h1> Coimbatore Institute Of Technology </h1><br> <h2>Address: </h2><p>Avinashi Rd, <br>Civil Aerodrome Post, <br>Coimbatore, <br>Tamil Nadu 641014 <br> </p> <h2>Website: </h2><a href="https://www.cit.edu.in/">https://www.cit.edu.in/</a><br><h2>Virtual Tour: </h2><a href="form.html">Visit us</a>'
+            });
+
+            marker.addListener('click', function(){
+                infoWindow.open(map,marker);
+            });
+        }
+    </script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAEbQDHgX-y4HhqYvvmH-CZfJO1Ybx3UvM&callback=initMap">
+</script>
+</body>
+</html>

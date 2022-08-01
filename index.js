@@ -342,27 +342,34 @@
     video.src=hotspot.src;
     video.height=320;
     video.width=176;
-    var btn = document.createElement("button");
-    btn.classList.add('info-hotspot-btn');
-    btn.addEventListener("click", function(){
+    if(hotspot.src)
+    {
+      var btn = document.createElement("button");
+      btn.classList.add('info-hotspot-btn');
+      btn.innerHTML = 'Play';
+      btn.addEventListener("click", function(){
       if(video.paused)
       {
-        btn.innerHTML = 'Play';
+        btn.innerHTML = 'Pause';
         video.play();
       }
       else{
-        btn.innerHTML = 'Pause';
+        btn.innerHTML = 'Play';
         video.pause();
       }
-})
-    
+      })
+    }
     
 
     // Place header and text into wrapper element.
     wrapper.appendChild(header);
     wrapper.appendChild(text);
     wrapper.appendChild(video);
-    wrapper.appendChild(btn);
+    if(hotspot.src)
+    {
+      wrapper.appendChild(btn);
+    }
+    
     // Create a modal for the hotspot content to appear on mobile mode.
     var modal = document.createElement('div');
     modal.innerHTML = wrapper.innerHTML;
