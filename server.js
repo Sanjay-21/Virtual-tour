@@ -3,6 +3,9 @@ const app=express();
 const mongoose=require("mongoose");
 const bodyParser=require("body-parser"); 
 
+var http = require('http');
+var fs = require('fs');
+
 mongoose.connect("mongodb+srv://admin:pjuSkOIzxsbGfN2Z@cluster0.3b7ya.mongodb.net/formDB", {useNewUrlParser:true}, {useUnifiedTopology:true})
 //pjuSkOIzxsbGfN2Z
 
@@ -19,12 +22,17 @@ const formSchema={
 const Form=mongoose.model("Form",formSchema);
 
 app.use(bodyParser.urlencoded({extended:true}));
+
+
 app.get("/",function(req,res){
     res.sendFile(__dirname+"/form.html");
 })
 
+app.get("/map",function(req,res){
+    res.sendFile(__dirname+"/map.html");
+})
 
-app.post("/",function(req,res){
+app.post("/details",function(req,res){
     let newForm=new Form({
         name:req.body.name,
         email:req.body.email,
@@ -32,8 +40,7 @@ app.post("/",function(req,res){
         course:req.body.course
     });
     newForm.save();
-    res.redirect("/index.html");
+    res.redirect("/map");
 })
-
 
 app.listen(process.env.PORT || 3000)
